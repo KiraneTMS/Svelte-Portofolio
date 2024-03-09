@@ -3,12 +3,12 @@
 	import ImageCard from '../page_components/ImageCard.svelte'; // Make sure to adjust the path based on your project structure
 
 	const images = [
-    { title: 'HTML', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'CSS', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'JavaScript', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'Java', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'Kotlin', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'Php', link: "https://i.imgur.com/EJTwVZr.png"},
+    { title: 'Aurluna1', link: "https://i.imgur.com/EJTwVZr.png"},
+    { title: 'Aurluna2', link: "https://i.imgur.com/EJTwVZr.png"},
+    { title: 'Aurluna3', link: "https://i.imgur.com/EJTwVZr.png"},
+    { title: 'Aurluna4', link: "https://i.imgur.com/EJTwVZr.png"},
+    { title: 'Aurluna5', link: "https://i.imgur.com/EJTwVZr.png"},
+    { title: 'Aurluna6', link: "https://i.imgur.com/EJTwVZr.png"},
     // Add more skills as needed
   ];
   const tags = [
@@ -23,6 +23,11 @@
     { title: 'Php4'},
     { title: 'Php5'},
     { title: 'Php6'},
+    // Add more skills as needed
+  ];
+  const portofolio_types = [
+    { title: 'Art', image: "https://i.imgur.com/szQmpON.png", icon: "🖌"},
+    { title: 'programming', image: "https://i.imgur.com/6U5uWXn.png", icon: "</>"},
     // Add more skills as needed
   ];
 
@@ -40,7 +45,7 @@
 
 	.portofolio-filter {
 		width: 20%; /* Adjust the width for the filter */
-		background-color: #ff0000; /* Optional: add a background color */
+		/* background-color: #ff0000; */
 		padding: 20px;
 		margin-top: 20px;
 		margin-right: auto; /* Push to the left */
@@ -143,11 +148,107 @@
 			margin-right: 0;
 		}
 	}
+	.one {
+	border: none;
+	border-radius: 4px;
+	text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.48);
+	overflow: hidden;
+	padding: 20px 50px 20px 70px;
+	margin-bottom: 20px;
+	font-size: 20px;
+	position: relative;
+	color: white;
+	outline: none;
+	cursor: pointer;
+	width: 100%;
+	-webkit-transition: background-position .7s,box-shadow .4s;
+	transition: background-position .7s,box-shadow .4s;
+	background-size: 110%;
+	font-family: 'Oswald', sans-serif;
+	}
+	.one:hover {
+	background-position: 0% 30%;
+	}
+	.one:hover:after {
+	right: -40px;
+	-webkit-transition: right .4s,-webkit-transform 30s .2s linear;
+	transition: right .4s,-webkit-transform 30s .2s linear;
+	transition: right .4s,transform 30s .2s linear;
+	transition: right .4s,transform 30s .2s linear,-webkit-transform 30s .2s linear;
+	}
+	.one:before, .one:after {
+	font-family: FontAwesome;
+	display: block;
+	position: absolute;
+	}
+	.one:before {
+	-webkit-transition: all 1s;
+	transition: all 1s;
+	font-size: 30px;
+	left: 25px;
+	top: 19px;
+	}
+	.one:after {
+	-webkit-transition: right .4s, -webkit-transform .2s;
+	transition: right .4s, -webkit-transform .2s;
+	transition: right .4s, transform .2s;
+	transition: right .4s, transform .2s, -webkit-transform .2s;
+	font-size: 100px;
+	opacity: .3;
+	right: -120px;
+	top: -17px;
+	}
+
+	.one {
+		box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 0.86) inset, 0px 0px 10px 0px #fdfdfd;
+	}
+	.one:hover {
+	box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #fdfdfd;
+	}
+	.one:hover:after {
+	-webkit-transform: scale(1);
+			transform: scale(1);
+	}
+	.one:hover:before {
+	-webkit-transform: scale(1.2);
+			transform: scale(1.2);
+	}
+	.one b {
+	color: #353434;
+	font-weight: 700;
+	font-style: italic;
+	font-size: 20px;
+	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.78);
+	}
+
 </style>
 
 <div class="portofolio-body">
 	<div class="portofolio-filter">
 		<!-- Filter content goes here -->
+		{#each portofolio_types as { title, image, icon}}
+			<button class='one' style="background-image: linear-gradient(to bottom, #232324, rgba(122, 118, 126, 0.51)), url({image}); background-size: cover; background-position: center; color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; position: relative;">
+
+				<b>{title}</b> Portofolio
+				<style>
+				.one::before, .one::after {
+					content: {icon};
+					position: absolute;
+					font-size: 24px;
+					top: 50%;
+					transform: translateY(-20%);
+				}
+			
+				.one::before {
+					left: 10px;
+				}
+			
+				.one::after {
+					right: 10px;
+				}
+				</style>
+			</button>
+		{/each}
 	</div>
 	<div class="portofolio-content">
 		<form action="https://www.google.com/search" method="get" class="search-bar">
