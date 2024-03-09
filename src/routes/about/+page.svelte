@@ -53,5 +53,6 @@
 	.skills_type{
 		color: #fff;
 		font-size: 40px;
+		margin: 40px;
 	}
 </style>

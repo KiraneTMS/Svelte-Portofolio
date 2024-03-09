@@ -2,7 +2,7 @@
     <a href="#">
       <div class="twitter hover"><i class="fa-brands fa-twitter"></i> Twiter</div>
     </a>
-    <a href="https://github.com/behan05/">
+    <a href="https://github.com/KiraneTMS/" target="_blank">
       <div class="github hover"><i class="fa-brands fa-github "></i> GitHub</div>
     </a>
     <a href="#">

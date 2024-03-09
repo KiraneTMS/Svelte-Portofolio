@@ -3,7 +3,7 @@
 </script>
 <div class="wrap">
     <div class="shape">
-		<h1 class="title" data-text="Name">Name</h1><br>
+		<h1 class="title" data-text="Arin Emir">Arin Emir</h1><br>
 		<Socials/>
 	</div>
     <div class="shape"></div>

@@ -62,7 +62,7 @@
 		padding-right: 10%;
 	}
 	.tag {
-		background-color: #4B7CB6;
+		background: linear-gradient(64.00916346799386deg, rgba(58, 0, 92,1) 23.44140625%,rgba(58, 0, 92,1) 23.44140625%,rgb(51, 0, 236) 79.84765625%);
 		padding: 8px 10px 8px 20px;
 		width: fit-content;
 		max-width: 100px;
@@ -101,7 +101,7 @@
 		width: 100%;
   		max-width: 100%;
 		height: 35px;
-		background: rgba(255, 255, 255, 0.2);
+		background: rgba(46, 51, 88, 0.2);
 		display: flex;
 		align-items: center;
 		border-radius: 60px;
@@ -151,7 +151,7 @@
 	.one {
 	border: none;
 	border-radius: 4px;
-	text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.48);
+	text-shadow: 0px 0px 10px rgba(51, 0, 236, 0.48);
 	overflow: hidden;
 	padding: 20px 50px 20px 70px;
 	margin-bottom: 20px;
@@ -200,10 +200,10 @@
 	}
 
 	.one {
-		box-shadow: 0px 0px 0px 2px rgba(59, 59, 59, 0.86) inset, 0px 0px 10px 0px #fdfdfd;
+		box-shadow: 0px 0px 0px 2px rgba(81, 54, 230, 0.86) inset, 0px 0px 10px 0px #fdfdfd;
 	}
 	.one:hover {
-	box-shadow: 0px 0px 0px 2px rgba(255, 255, 255, 0.16) inset, 0px 0px 30px 0px #fdfdfd;
+	box-shadow: 0px 0px 0px 2px rgba(14, 0, 92, 0.16) inset, 0px 0px 30px 0px #fdfdfd;
 	}
 	.one:hover:after {
 	-webkit-transform: scale(1);
