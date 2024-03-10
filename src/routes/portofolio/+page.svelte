@@ -222,6 +222,10 @@
 	}
 
 </style>
+<svelte:head>
+	<title>Portofolio</title>
+	<meta name="description" content="All Project I've worked on" />
+</svelte:head>
 
 <div class="portofolio-body">
 	<div class="portofolio-filter">

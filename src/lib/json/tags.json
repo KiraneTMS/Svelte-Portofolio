@@ -1,0 +1,24 @@
+{
+    "Programming": [
+        { "title": "HTML" },
+        { "title": "CSS" },
+        { "title": "JavaScript" },
+        { "title": "Java" },
+        { "title": "Kotlin" },
+        { "title": "Php" },
+        { "title": "JSON" },
+        { "title": "SvelteKit" },
+        { "title": "NodeJS" }
+    ],
+    "Art": [
+        { "title": "Original Chatracter" },
+        { "title": "Digital Art" },
+        { "title": "Banner" },
+        { "title": "Logo" },
+        { "title": "Traditional Art" },
+        { "title": "Illustration" },
+        { "title": "Concept Art" },
+        { "title": "Sketch" }
+    ]
+}
+  
