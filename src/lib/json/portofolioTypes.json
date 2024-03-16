@@ -1,0 +1,17 @@
+{
+    "portofolio_types": [
+      {
+        "title": "Art",
+        "image": "https://i.imgur.com/szQmpON.png",
+        "icon": "🖌",
+        "type": "1"
+      },
+      {
+        "title": "Programming",
+        "image": "https://i.imgur.com/qkmv8hh.jpeg",
+        "icon": "</>",
+        "type": "2"
+      }
+    ]
+  }
+  

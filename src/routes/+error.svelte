@@ -87,5 +87,4 @@
 </div>
 
 {:else}
-  <!-- Handle the case when $page.error is null or undefined -->
 {/if}

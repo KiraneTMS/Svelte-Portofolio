@@ -1,0 +1,37 @@
+{
+  "software": [
+    {
+      "name": "Portofolio Website",
+      "client": "-",
+      "image": "https://i.imgur.com/WAyRXjk.png",
+      "description": "My Portofolio Website",
+      "brief_description": "My Portofolio Website",
+      "purpose": "Personal",
+      "Platform": "Website",
+      "tech_stack": [
+        { "name": "CSS" },
+        { "name": "HTML" },
+        { "name": "JavaScript" },
+        { "name": "SvelteKit" },
+        { "name": "JSON" }
+      ],
+      "source": "https://github.com/KiraneTMS/Svelte-Portofolio",
+      "position": "Fullstack Developer"
+    },
+    {
+      "name": "BoBy-Body Balancy",
+      "client": "-",
+      "image": "https://i.imgur.com/Or8HuyS.png",
+      "description": "Body management android application named BoBy \nApplication that can predict a person's obesity level and calorie needs based on the input of body weight, height, etc. then the system will recommend exercise according to the predicted results of calorie needs. Besides that in the system there are also features that can detect the calories produced by a food based on its type / category.",
+      "brief_description": "Body management android application named BoBy \nApplication that can predict a person's obesity level",
+      "purpose": "Academic",
+      "Platform": "Android",
+      "tech_stack": [
+        { "name": "Kotlin" },
+        { "name": "Retrofit" }
+      ],
+      "source": "https://github.com/KiraneTMS/BodyBalancy",
+      "position": "Android Developer"
+    }
+  ]
+}

@@ -1,40 +1,182 @@
 <!-- portofolio.svelte -->
 <script lang="ts">
 	import ImageCard from '../page_components/ImageCard.svelte'; // Make sure to adjust the path based on your project structure
+	import ProgramCard from '../page_components/ProgramCard.svelte'; // Make sure to adjust the path based on your project structure
 
-	const images = [
-    { title: 'Aurluna1', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'Aurluna2', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'Aurluna3', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'Aurluna4', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'Aurluna5', link: "https://i.imgur.com/EJTwVZr.png"},
-    { title: 'Aurluna6', link: "https://i.imgur.com/EJTwVZr.png"},
-    // Add more skills as needed
-  ];
-  const tags = [
-    { title: 'HTML'},
-    { title: 'CSS'},
-    { title: 'JavaScript'},
-    { title: 'Java'},
-    { title: 'Kotlin'},
-    { title: 'Php1'},
-    { title: 'Php2'},
-    { title: 'Php3'},
-    { title: 'Php4'},
-    { title: 'Php5'},
-    { title: 'Php6'},
-    // Add more skills as needed
-  ];
-  const portofolio_types = [
-    { title: 'Art', image: "https://i.imgur.com/szQmpON.png", icon: "🖌"},
-    { title: 'programming', image: "https://i.imgur.com/6U5uWXn.png", icon: "</>"},
-    // Add more skills as needed
-  ];
+	let portofolioMode : number;
+	let projectType = 'all';
+
+	portofolioMode = 1;
+
+	//json
+  	import artsJson from '../../lib/json/arts.json';
+  	import tagsJson from '../../lib/json/tags.json';
+  	import typeJson from '../../lib/json/portofolioTypes.json';
+	import ImageModal from '../page_components/ImageModal.svelte';
+
+	let arts = artsJson
+	let tags = tagsJson
+	let types = typeJson
+	let searchResult = ''
+	let activatedArtTags: string[] = [];
+	let activatedProgrammingTags: string[] = [];
+	
+	let isModalShown = false;
+	let isShowMatureContent = false;
+
+	function toggleAllTag() {
+		activatedArtTags = [];
+		activatedProgrammingTags = [];
+	}
+	function toggleArtTag(tag: string) {
+		if (activatedArtTags.includes(tag)) {
+		// Remove the tag if it's already present
+		activatedArtTags = activatedArtTags.filter(t => t !== tag);
+		} else {
+		// Add the tag if it's not present
+		activatedArtTags = [...activatedArtTags, tag];
+		}
+	}
+	function toggleProgrammingTag(tag: string) {
+		if (activatedProgrammingTags.includes(tag)) {
+		// Remove the tag if it's already present
+		activatedProgrammingTags = activatedProgrammingTags.filter(t => t !== tag);
+		} else {
+		// Add the tag if it's not present
+		activatedProgrammingTags = [...activatedProgrammingTags, tag];
+		}
+	}
+
+	//search function
+	function handleInputChange(event: Event) {
+		// Update the searchResult variable as the user types
+		searchResult = (event.target as HTMLInputElement).value;
+
+		// Perform your custom search logic here (e.g., display search results)
+		console.log('Performing search:', searchResult);
+	}
+
+	// Switch Portofolio Mode Function
+	function handleButtonClick(event: MouseEvent) {
+		const newMode = parseInt((event.currentTarget as HTMLElement).dataset.text || '0', 10);
+		portofolioMode = isNaN(newMode) ? 0 : newMode;
+		// Add any other logic you want to perform on button click
+	}
+
+	//Filter Art Portofolio
+	$: filteredImages = arts.images
+    .filter(({ title, description, tags, purpose }) => {
+      const includesSearchResult = title.toLowerCase().includes(searchResult.toLowerCase()) || 
+                                  (description && description.toLowerCase().includes(searchResult.toLowerCase()));
+
+      const includesActivatedTags =
+        activatedArtTags.length === 0 ||
+        activatedArtTags.every(tag => tags.map(t => t.toLowerCase()).includes(tag.toLowerCase()));
+
+      const includesProjectType =
+        projectType === 'all' ||
+        purpose.toLowerCase().includes(projectType.toLowerCase());
+
+      const isMatureContent = tags.map(t => t.toLowerCase()).includes('mature');
+
+      return includesSearchResult && includesActivatedTags && includesProjectType && (isShowMatureContent || !isMatureContent);
+    })
+    .slice()
+    .reverse();
+
+	let sortedData = Object.fromEntries(
+    Object.entries(tags).map(([key, value]) => [
+        key,
+        value.sort((a, b) => a.title.localeCompare(b.title))
+    ])
+    );
+
+	// Define the type of Tool
+	type Tool = {
+		name: string;
+		icon: string;
+	};
+
+	// Define the type of Art
+	type Art = {
+		title: string;
+		link: string;
+		description: string;
+		tools: Tool[];
+		tags: string[];
+	};
+
+	// Define the type of ArtsJson
+	type ArtsJson = {
+		images: Art[];
+	};
+
+	// Make sure artsJson follows the specified type
+	const artsData: ArtsJson = artsJson;
+
+	// Get the data of the first art
+	let firstArt: Art | undefined;
+
+	const reversedImages = [...artsData.images].reverse();
+
+	
+	function getArt(index: number) {
+		const filteredImages = reversedImages.filter(art => {
+			if (isShowMatureContent) {
+			return true; // Include all images when isShowMatureContent is true
+			} else {
+			return !art.tags.includes('mature'); // Exclude images with the 'mature' tag when isShowMatureContent is false
+			}
+		});
+
+		firstArt = filteredImages[index];
+		isModalShown = true;
+	}
+	function closeImageModal() {
+		// Add logic to close or hide the modal
+		// You can use state management or emit an event to the parent component
+		isModalShown = false
+		console.log(isModalShown);
+	}
+	function next() {
+		const currentIndex = reversedImages.indexOf(firstArt as Art);
+		const nextIndex = (currentIndex + 1 + reversedImages.length) % filteredImages.length;
+		getArt(nextIndex);
+	}
+	function prev() {
+		const currentIndex = reversedImages.indexOf(firstArt as Art);
+		const prevIndex = (currentIndex - 1 + reversedImages.length) % filteredImages.length;
+		getArt(prevIndex);
+	}
+
+	function toggleMatureContent() {
+		isShowMatureContent = !isShowMatureContent;
+	}
 
 </script>
 
 <style>
+	:root {
+	--sz: 10px;
+	--c1: #e7fbfe; /* Change this to your desired default color */
+	--c1-off: #ff0000; /* Add this line for the off color (red in this case) */
+	--c2: #1906c1;
+	--c3: #0124e9;
+	--tr: all 0.5s ease 0s;
+	--clr: 1; /* change color from 1 to 12 */
+	--hue: calc(30deg - (30deg * var(--clr)));
+	}
 	/* Your global styles for the image gallery page */
+	.hidden {
+		display: none;
+	}
+	.hide{
+		opacity: 0;
+	}
+	.project-type{
+		margin-top: 20px;
+		color: white;
+	}
 	.portofolio-body {
 		display: flex;
 		/* width: 100%; */
@@ -53,8 +195,9 @@
 
 	.portofolio-content {
 		flex: 1;
-		width: 70%;
+		width: 75%;
 		padding: 20px; /* Adjust the padding as needed */
+		padding-right: 40px;
 	}
 
 	.tags-container {
@@ -71,6 +214,7 @@
 		border-radius: 4px;
 		position: relative;
 		clip-path: polygon(0 50%, 10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
+		cursor: pointer;
 	}
 
 	.tag::before {
@@ -84,6 +228,9 @@
 		transform: translateY(-50%);
 		background-color: white;
 		border-radius: 100vh;
+	}
+	.active-tag {
+		color: red;
 	}
 
 	.tags {
@@ -122,12 +269,6 @@
 		color: whitesmoke;
 	}
 
-	.search-bar button {
-		border: 0;
-		border-radius: 50%;
-		width: 50px;
-		height: 50px;
-	}
 	.image-gallery {
 		width: 100%;
 		max-width: 1200px; /* Adjust the max-width as needed */
@@ -137,16 +278,6 @@
 		flex-wrap: wrap;
 		gap: 20px;
 		margin-top: 20px; /* Adjust the margin as needed */
-	}
-	@media screen and (max-width: 768px) {
-		.portofolio-body {
-			flex-direction: column;
-		}
-
-		.portofolio-filter {
-			width: 100%;
-			margin-right: 0;
-		}
 	}
 	.one {
 	border: none;
@@ -221,17 +352,230 @@
 	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.78);
 	}
 
+	.hidden {
+    display: none;
+  }
+
+  #modalContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999; /* Set a higher z-index to appear in front of everything else */
+	background-color: rgba(0, 0, 0, 0.86);
+  }
+
+  .close-container {
+    position: absolute;
+    top: 0;
+    right: 1%;
+    z-index: 3; /* Set a higher z-index for the close container */
+  }
+
+  .close-circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background-color: red; /* Set your desired color */
+    border-radius: 50%;
+    z-index: 2; /* Set a higher z-index for the red circle */
+  }
+
+  .close-icon {
+    color: white;
+    margin-right: 6px;
+    cursor: pointer;
+    font-size: 20px;
+    position: relative;
+    z-index: 3; /* Set a higher z-index for the close icon */
+  }
+
+  /* Next Prev Button */
+  .prev{
+	position: fixed;
+	top: 50%;
+	left: 0;
+	width: 40px;
+	height: 40px;
+	background-color: #333;
+	text-align: center;
+	padding-top: 20px;
+	color: #fdfdfd;
+	font-size: 20px;
+	border-radius: 100%;
+	cursor: pointer;
+  }
+  .next{
+	position: fixed;
+	top: 50%;
+	right: 0;
+	width: 40px;
+	height: 40px;
+	background-color: #333;
+	text-align: center;
+	padding-top: 20px;
+	color: #fdfdfd;
+	font-size: 20px;
+	border-radius: 100%;
+	cursor: pointer;
+  }
+
+  /* Hide Mature Content Toggle */
+  .toggle {
+		position: relative;
+		width: calc(var(--sz) * 4);
+		height: calc(var(--sz) * 2);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.mature-input {
+		display: none;
+	}
+
+	label[for=btn] {
+		position: absolute;
+		width: calc(var(--sz) * 4);
+		height: calc(var(--sz) * 2);
+		background: #01109b;
+		border-radius: var(
+			--sz);
+		box-shadow: 0 calc(var(--sz) / 20) calc(var(--sz) / 10) 0 var(--c3) inset, 0 calc(var(--sz) / 5) calc(var(--sz) / 2) calc(var(--sz) / -10) var(--c1) inset, 0 calc(var(--sz) / 25) calc(var(--sz) / 20) 0 #fffc, 0 calc(var(--sz) / -50) calc(var(--sz) / 20) 0 #0003;
+	}	
+
+	.thumb {
+		position: absolute;
+		width: calc(calc(var(--sz)* 2) - calc(var(--sz) / 8));
+		height: calc(calc(var(--sz)* 2) - calc(var(--sz) / 8));
+		top: calc(calc(var(--sz) / 10) + calc(var(--sz) / -20));
+		left: calc(calc(var(--sz) / 10) + calc(var(--sz) / -30));
+		background: conic-gradient(from -45deg, var(--c1) 0 90deg, var(--c2), var(--c1));
+		border-radius: var(--sz);
+		box-shadow: 0 calc(var(--sz) / 50) calc(var(--sz) / 30) calc(var(--sz) / 80) var(--c3);
+		cursor: pointer;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		z-index: 1;
+	}
+
+	#btn:checked + label .thumb {
+		--lg: var(--on);
+		transition: var(--tr);
+		left: calc(calc(100% - calc(calc(var(--sz) * 2) - calc(var(--sz) / 3))) - calc(calc( var(--sz) / 10) + calc(var(--sz) / 5.75)));
+
+	}
+	#btn:not(:checked) + label {
+	background: var(--c1-off); /* Use --c1-off variable when the checkbox is not checked */
+	}
+
+	.thumb:before {
+		content: "";
+		position: absolute;
+		width: calc(var(--sz) / 0.7);
+		height: calc(var(--sz) / 0.7);
+		background: #b7eef7;
+		border-radius: 100%;
+		box-shadow: 0 0 calc(var(--sz) / 50) 0 #fff, 0 0 calc(var(--sz) / 50) 0 #fff inset;
+		z-index: 3;
+	}
+
+	.thumb:after {
+		content: "";
+		position: absolute;
+		background: radial-gradient(circle at 50% 50%, #fff calc(var(--sz) / 40), #fff0 calc(var(--sz) / 2) 100%), conic-gradient(from -45deg, var(--c1) 0 90deg, #55d5e9, #55d5e9, var(--c1));
+		width: 100%;
+		height: 100%;
+		border-radius: 100%;
+		transition: var(--tr);
+	}
+
+	#btn:checked + label .thumb::after {
+		background: radial-gradient(circle at 95% 50%, #fff calc(var(--sz) / 50), #fff0 calc(var(--sz) / 1.75) 100%), conic-gradient(from -45deg, var(--c1) 0 90deg, #55d5e9, #55d5e9, var(--c1));
+	}
+
+	.light {
+		right: calc(var(--sz)* -2.75);
+		z-index: 1;
+		background: #121212;
+		position: relative;
+		width: calc(var(--sz) / 1);
+		height: calc(var(--sz) / 4);
+		border-radius: var(--sz);
+		box-shadow: 0 calc(var(--sz) / -100) calc(var(--sz) / 10) calc(var(--sz) / 100) #fff, 0 calc(var(--sz) / 100) calc(var(--sz) / 50) calc(var(--sz) / 50) var(--c3);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		transition: var(--tr);
+	}
+
+	.light:before {
+		content: "";
+		transition: var(--tr);
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		background: linear-gradient(180deg, var(--c1), var(--c2));
+		border-radius: var(--sz);
+		box-shadow: 0 calc(var(--sz) / 3) calc(var(--sz) / 3) calc(var(--sz) / 20) #fff8 inset;
+		z-index: 2;
+	}
+
+	#btn:checked + label + .light:before {
+		transition: var(--tr);
+		box-shadow: 0 0 calc(var(--sz) / 50) calc(var(--sz) / 100) var(--c1) inset, 0 0 calc(var(--sz) / 2.5) calc(var(--sz) / 12) var(--c1), 0 0 calc(var(--sz) / 1) calc(var(--sz) / 100) #fff inset, 0 0 calc(var(--sz) / 3) calc(var(--sz) / 50) #FFF;
+	}
+
+  @media (max-width: 768px) {
+    .close-container {
+      top: 0;
+      right: 15%;
+    }
+    .close-icon {
+      margin-right: 8px;
+      font-size: 18px; /* Adjust close icon size for smaller screens */
+    }
+
+	.portofolio-body {
+		flex-direction: column;
+	}
+
+	.portofolio-filter {
+		width: 80%;
+	}
+  }
 </style>
 <svelte:head>
 	<title>Portofolio</title>
 	<meta name="description" content="All Project I've worked on" />
 </svelte:head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-DLcjxQ8iJkqlNKn3P9gZPxCVIn+EGkLfd5k7ahFpsENuq+nbrk62Zekn5L/sW7t6" crossorigin="anonymous">
 
+
+<div id="modalContainer" class={!isModalShown ? 'hidden' : ''}>
+	<div class="close-container">
+	  <span class="close-icon" on:click={() => closeImageModal()}>✕</span>
+	  <span class="close-circle"></span>
+	</div>
+	{#if firstArt}
+	  <ImageModal title={firstArt.title} link={firstArt.link} tools={firstArt.tools} description={firstArt.description} />
+	  {console.log(isModalShown)}
+	{/if}
+	
+	<div class="prev" on:click={prev}>&lt;</div>
+	<div class="next" on:click={next}>&gt;</div>
+</div>
+  
 <div class="portofolio-body">
 	<div class="portofolio-filter">
 		<!-- Filter content goes here -->
-		{#each portofolio_types as { title, image, icon}}
-			<button class='one' style="background-image: linear-gradient(to bottom, #232324, rgba(122, 118, 126, 0.51)), url({image}); background-size: cover; background-position: center; color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; position: relative;">
+		{#each types.portofolio_types as { title, image, icon, type}}
+			<button class='one' data-text={type} 
+			style="background-image: linear-gradient(to bottom, #232324, rgba(122, 118, 126, 0.51)), url({image}); background-size: cover; background-position: center; color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; position: relative;"
+			on:click={handleButtonClick}>
 
 				<b>{title}</b> Portofolio
 				<style>
@@ -255,23 +599,70 @@
 		{/each}
 	</div>
 	<div class="portofolio-content">
-		<form action="https://www.google.com/search" method="get" class="search-bar">
-			<input type="text" placeholder="search anything" name="q">
-			<button type="submit"><i class="fas fa-search"></i></button>
-		</form>
+		<form class="search-bar">
+			<input type="text" placeholder="Search anything" name="q" bind:value={searchResult} on:input={handleInputChange}>
+		  </form>
+		  <div>
+			<!-- Your form content here -->
+			<div class="project-type">
+				<label>
+					<input type="radio" name="projectType" value="all" bind:group={projectType}>
+					All
+				</label>
+				<label>
+					<input type="radio" name="projectType" value="personal" bind:group={projectType}>
+					Personal
+				</label>
+				<label>
+					<input type="radio" name="projectType" value="academic" bind:group={projectType}>
+					Academic
+				</label>
+				<label>
+					<input type="radio" name="projectType" value="professional" bind:group={projectType}>
+					Professional
+				</label>
+			</div>
+		  </div>
 			<div class="tags-container">
+				{#if portofolioMode == 1}
 				<ul class="tags">
-					{#each tags as { title}}
-						<li class="tag">{title}</li>
+					<li class="tag" on:click={toggleAllTag} value="">All</li>
+					{#each sortedData.Art as { title}}
+						<li on:click={() => toggleArtTag(title)} class="{['tag', activatedArtTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
 					{/each}
 				</ul>
+				{:else if portofolioMode == 2}
+				<ul class="tags">
+					<li class="tag" on:click={toggleAllTag} value="">All</li>
+					{#each sortedData.Programming as { title}}
+						<li on:click={() => toggleProgrammingTag(title)} class="{['tag', activatedProgrammingTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
+					{/each}
+				</ul>
+				{/if}
 			</div>
+
+			<label class={portofolioMode == 2? "hide":""} for="toggle" style="color: white; font-size: 13px;">Show Mature Content</label>
+			<div class="toggle {portofolioMode == 2? "hide":""}">
+				<input class="mature-input" type="checkbox" id="btn" on:change={toggleMatureContent}>
+				<label for="btn">
+				  <span class="thumb">
+					<span class="shadow"></span>
+				  </span>
+				</label>
+			  </div>
 			
 		<div class="image-gallery">
-			{#each images as { title, link}}
-			<ImageCard {title} {link} />
-			{/each}
+			{#if portofolioMode == 1}
+				{#each filteredImages as { title, link, tools, description}, index}
+				<div on:click={() => getArt(index)} style="cursor: pointer;">
+					<ImageCard {title} {description} {link} {tools}/>
+				</div>
+				{/each}
+			{:else if portofolioMode ==2}
+				<ProgramCard {searchResult} {activatedProgrammingTags} {projectType}/>
+			{/if}
 			<!-- Add more ImageCard components as needed -->
 		</div>
 	</div>
 </div>
+

@@ -5,6 +5,8 @@
 
     export let link = "";
     export let title = "";
+    export let description = "";
+    export let tools: { name: string; icon: string }[] = [];
   
     onMount(() => {
         const tiltContainers = document.querySelectorAll('.art-product-container') as NodeListOf<HTMLElement>;
@@ -32,6 +34,14 @@
         });
         });
     });
+
+    let truncateDescription = (description: string, maxLength: number) => {
+      if (description.length > maxLength) {
+        return `${description.slice(0, maxLength)}...`;
+      } else {
+        return description;
+      }
+    };
     </script>
   
   <style>
@@ -56,10 +66,24 @@
 
     .art-name {
         position: absolute;
-        bottom: 10px;
+        bottom: 5px;
         left: 10px;
         color: white;
-        font-size: 16px;
+        font-size: 12px;
+    }
+    .art-description {
+        position: absolute;
+        top: 5px;
+        left: 10px;
+        color: white;
+        font-size: 10px;
+    }
+    .small-image{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px; /* Adjust the size as needed */
+      height: 30px;
     }
   </style>
   
@@ -67,6 +91,10 @@
     <!-- Your content here -->
     <div class="overlay">
       <h1 class="art-name">{title}</h1>
+      <p class="art-description" style="line-height: 1.2;">{truncateDescription(description, 50)}</p>
+      {#each tools as { name, icon }}
+        <div class="small-image" style="background: url('{icon}'); background-size: cover;"></div>
+      {/each}
     </div>
   </div>
   

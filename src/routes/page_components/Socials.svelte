@@ -1,11 +1,11 @@
 <div class="socialMediaBtn">
-    <a href="#">
-      <div class="twitter hover"><i class="fa-brands fa-twitter"></i> Twiter</div>
+    <a href="https://www.deviantart.com/arinemir">
+      <div class="twitter hover"><i class="fa-brands fa-deviantart"></i> DeviantArt</div>
     </a>
     <a href="https://github.com/KiraneTMS/" target="_blank">
       <div class="github hover"><i class="fa-brands fa-github "></i> GitHub</div>
     </a>
-    <a href="#">
+    <a href="https://www.linkedin.com/in/arsya-alifian-widiatmoko-847089190/">
       <div class="linkedin hover"><i class="fa-brands fa-linkedin"></i> LinkedIn</div>
     </a>
   </div>

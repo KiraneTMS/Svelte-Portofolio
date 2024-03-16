@@ -45,11 +45,11 @@
         <h2 class="title">About Me</h2>
         <div class="about-content">
             <div class="column right">
-                <div class="text">I'm Name and I am a <span class="typing-2">{typedText}</span></div>
-                <p>Hi there! I'm a 16 yr old developer with over 7 years of experience. I like making fun and satisying games and doing pixel art. I alos like playing chess.</p>
+                <div class="text">I'm Arin Emir and I am a <span class="typing-2">{typedText}</span></div>
+                <p>Hi there! I'm a versatile individual with a knack for web development, Android programming, and a passion for bringing anime artistry to life. I've navigated the realms of coding and creative design, finding joy in the intersection of technology and artistic expression. </p>
               <br>
 <p style="font-style: italic;">
-Fun Fact: I was the runner up for the Pixilart Thanksgiving competition and my team won the Charlton Chess v Dartford Chess Tournament.
+Fun Fact: I was 1st winner at the Karutakana contest during Yamato Damashii XIV STBA YAPARI-ABA 2019
 </p>
             </div>
         </div>

@@ -1,0 +1,21 @@
+{
+    "programmingskillsData": [
+      { "title": "HTML", "progress": 0.9 },
+      { "title": "CSS", "progress": 0.8 },
+      { "title": "JavaScript", "progress": 0.75 },
+      { "title": "Java", "progress": 0.85 },
+      { "title": "Kotlin", "progress": 0.8 },
+      { "title": "Php", "progress": 0.85 }
+    ],
+    "languageSkillsData": [
+      { "title": "English", "progress": 0.75 },
+      { "title": "Japanese", "progress": 0.8 }
+    ],
+    "artSkillsData": [
+      { "title": "Digital Art", "progress": 0.85 },
+      { "title": "Character Design", "progress": 0.8 },
+      { "title": "Concept Art", "progress": 0.8 },
+      { "title": "Logo Design", "progress": 0.85 }
+    ]
+}
+  

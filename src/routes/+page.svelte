@@ -1,11 +1,13 @@
 <script>
 	import Introduce from './page_components/Introduce.svelte';
 	import Title from './page_components/Title.svelte';
+	import logo from '$lib/images/Arine-C.png';
 </script>
 
 <svelte:head>
 	<title>Home</title>
 	<meta name="description" content="My Portofolio" />
+	<link rel="icon" type="image/png" href={logo}>
 </svelte:head>
 
 <section>

@@ -1,6 +1,6 @@
 <script>
 	import { page } from '$app/stores';
-	import logo from '$lib/images/svelte-logo.svg';
+	import logo from '$lib/images/Arine-W.png';
 	import github from '$lib/images/github.svg';
 
 	let isActive = true;
@@ -22,7 +22,7 @@
 	<nav class={isAffixed ? 'nav' : 'nav affixed'}>
 		<div class="container">
 		  <div class="logo">
-			<a href="/">Name</a>
+			<div class="logo-container no-hover"><a href="/"><img src={logo}></a></div>
 		  </div>
 		  <div id="mainListDiv" class={isActive ? 'main_list' : 'main_list show_list'}>
 			<ul class="navlinks">
@@ -47,9 +47,9 @@
 </header>
 
 <style>
-	svg {
-		width: 2em;
-		height: 3em;
+	.logo .logo-container img {
+		width: 1.7em;
+		height: 1.7em;
 		display: block;
 	}
 
@@ -63,7 +63,7 @@
 		position: fixed;
 		line-height: 65px;
 		text-align: center;
-		z-index: 2;
+		z-index: 4;
 	}
 
 	.nav div.logo {
@@ -77,21 +77,6 @@
 		text-decoration: none;
 		color: #fff;
 		font-size: 2.5rem;
-	}
-
-	.nav div.logo a:hover::before,
-	.nav div.logo a:hover::after {
-	content: ""; /* Empty content for pseudo-elements */
-	display: inline-block; /* Ensures text behaves inline */
-	}
-	.nav div.logo a:hover::before {
-	content: "-"; /* Text to add before */
-	color: white; /* Example color */
-	}
-
-	.nav div.logo a:hover::after {
-	content: "-"; /* Text to add after */
-	color: white; /* Example color */
 	}
 
 	.nav div.main_list {
@@ -137,8 +122,6 @@
 	content: "-"; /* Text to add after */
 	color: white; /* Example color */
 	}
-
-
 	.navTrigger {
 		display: none;
 	}

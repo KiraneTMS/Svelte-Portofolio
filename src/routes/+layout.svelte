@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
 	import './styles.css';
@@ -7,53 +7,61 @@
 
 	let theme = "dark";
 	let bgColor
+	let currentPage: { url: { pathname: string } } | undefined;
+	const excludedRoutes = ['/zettai-ryouiki', '/shinsei-no-mon'];
+
+	const unsubscribe = page.subscribe(value => {
+		currentPage = value;
+	});
 
 	onMount(() => {
-    if (theme === "dark") {
-      bgColor = "#000000";
-    }else{
-		bgColor = "#000000"
-	}
-  });
+		if (!currentPage) return; // Early return if currentPage is undefined
+		unsubscribe();
+	});
 </script>
 
 <div class="app">
-	<Header />
+	{#if (currentPage && currentPage.url) ?.pathname !== '/zettai-ryouiki' && (currentPage && currentPage.url) ?.pathname !== '/shinsei-no-mon'}
+		<Header />
+	{/if}
 
 	<main>
 		<slot />
 	</main>
 
-	<footer>
-		<div class="container row">
-			<div class="footer-col">
-				<h4>Pages</h4>
-				<ul>
-					<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-						<a href={$page.url.pathname === '/' ? '/' : '/'}>Home</a>
-					</li>
-					<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-						<a href={$page.url.pathname === '/about' ? '/about' : '/'}>About Me</a>
-					</li>
-					<li aria-current={$page.url.pathname === '/portofolio' ? 'page' : undefined}>
-						<a href="/portofolio">Portfolio</a>
-					</li>
-					<li aria-current={$page.url.pathname === '/contact' ? 'page' : undefined}>
-						<a href={$page.url.pathname === '/contact' ? '/contact' : '/'}>Contact</a>
-					</li>
-				</ul>
-			</div>
-			<div class="footer-col">
-				<h4>follow me</h4>
-				<div class="social-links">
-					<a href="https://www.deviantart.com/arinemir" data-title="DeviantArt"><i class="fa-brands fa-deviantart"></i></a>
-					<a href="https://twitter.com/_ArinEmir_" data-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-					<a href="#" data-title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-					<a href="#" data-title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+	{#if (currentPage && currentPage.url) ?.pathname !== '/zettai-ryouiki' && (currentPage && currentPage.url) ?.pathname !== '/shinsei-no-mon'}
+		<footer>
+			{console.log('Footer rendering for:', currentPage?.url?.pathname)}
+			<div class="container row">
+				<div class="footer-col">
+					<h4>Pages</h4>
+					<ul>
+						<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
+							<a href={$page.url.pathname === '/' ? '/' : '/'}>Home</a>
+						</li>
+						<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
+							<a href={$page.url.pathname === '/about' ? '/about' : '/'}>About Me</a>
+						</li>
+						<li aria-current={$page.url.pathname === '/portofolio' ? 'page' : undefined}>
+							<a href="/portofolio">Portfolio</a>
+						</li>
+						<li aria-current={$page.url.pathname === '/contact' ? 'page' : undefined}>
+							<a href={$page.url.pathname === '/contact' ? '/contact' : '/'}>Contact</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer-col">
+					<h4>follow me</h4>
+					<div class="social-links">
+						<a href="https://www.deviantart.com/arinemir" data-title="DeviantArt"><i class="fa-brands fa-deviantart"></i></a>
+						<a href="https://twitter.com/_ArinEmir_" data-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+						<a href="#" data-title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+						<a href="#" data-title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+					</div>
 				</div>
 			</div>
-		</div>
-	</footer>
+		</footer>
+	{/if}
 </div>
 
 <style>

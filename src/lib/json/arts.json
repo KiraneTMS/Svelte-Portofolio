@@ -1,0 +1,82 @@
+{
+  "images": [
+    {
+      "title": "Aurluna Concept Character",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/EJTwVZr.png",
+      "description": "Concept original character named Aurluna Van Sylvania",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["character", "concept art", "digital art", "original character"]
+    },
+    {
+      "title": "Arine Logo",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/NmiMYcQ.png",
+      "description": "Logo for portfolio website",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["logo", "design", "digital art"]
+    },
+    {
+      "title": "Sylvania Crest",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/wiCTMah.png",
+      "description": "Crest of Vampire Clan named Sylvania",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["logo", "design", "digital art", "concept art"]
+    },
+    {
+      "title": "Aurluna Illustration",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/f2k6xP3.png",
+      "description": "Aurluna with sylvania logo as bakground",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["character", "digital art", "original Character", "Illustration"]
+    },
+    {
+      "title": "Aurluna Onsen",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/7IsNof4.png",
+      "description": "Aurluna in Onsen",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["character", "digital art", "original Character", "Illustration", "mature"]
+    },
+    {
+      "title": "Rajaki Onsen",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/4FqrXrH.png",
+      "description": "Rajaki in Onsen",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["character", "digital art", "Original Character", "Illustration", "mature"]
+    }
+  ]
+}

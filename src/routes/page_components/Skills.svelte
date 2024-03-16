@@ -24,7 +24,7 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       margin: 10px;
-      background-color: #666666;
+      background-color: #47385c;
     }
   
     #progress-circle {
