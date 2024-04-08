@@ -5,6 +5,7 @@
     let isDeleting = false;
     let deletingSpeed = 50;
     let typingSpeed = 100;
+    let pauseDuration = 1000;
 
     const strings = [
     'Android Developer',
@@ -218,6 +219,17 @@ section .title::after{
 @media (max-width: 500px) {
     .about .about-content .right .text{
         font-size: 19px;
+    }
+    .max-width{
+        max-width: 500px;
+        margin: auto;
+    }
+    .about .about-content{
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 300px;
     }
 }
 </style>

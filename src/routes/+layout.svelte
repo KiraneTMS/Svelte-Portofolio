@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Header from './Header.svelte';
+	import Introduce from './page_components/Introduce.svelte';
+	import Title from './page_components/Title.svelte';
 	import './styles.css';
 	import { onMount } from 'svelte';
   	import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -106,7 +108,7 @@
 
 	.footer-col {
 		width: 25%;
-		padding: 0 15px;
+		padding: 80px;
 	}
 
 	.footer-col h4 {

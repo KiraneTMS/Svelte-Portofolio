@@ -12,16 +12,16 @@
       { "title": "Retrofit", "image": "/src/lib/images/ico/retrofit/favicon-16x16.png" }
     ],
     "Art": [
-      { "title": "Original Character", "image": "url_for_original_character_image" },
-      { "title": "Digital Art", "image": "url_for_digital_art_image" },
-      { "title": "Banner", "image": "url_for_banner_image" },
-      { "title": "Logo", "image": "url_for_logo_image" },
-      { "title": "Traditional Art", "image": "url_for_traditional_art_image" },
-      { "title": "Illustration", "image": "url_for_illustration_image" },
-      { "title": "Concept Art", "image": "url_for_concept_art_image" },
-      { "title": "Sketch", "image": "url_for_sketch_image" },
-      { "title": "Character", "image": "url_for_sketch_image" },
-      { "title": "Mature", "image": "url_for_sketch_image" }
+      { "title": "Original Character", "image": "url_for_image" },
+      { "title": "Digital Art", "image": "url_for_image" },
+      { "title": "Banner", "image": "url_for_image" },
+      { "title": "Logo", "image": "url_for_image" },
+      { "title": "Traditional Art", "image": "url_for_image" },
+      { "title": "Illustration", "image": "url_for_image" },
+      { "title": "Concept Art", "image": "url_for_image" },
+      { "title": "Sketch", "image": "url_for_image" },
+      { "title": "Character", "image": "url_for_image" },
+      { "title": "Mature", "image": "url_for_image" }
     ]
   }
   

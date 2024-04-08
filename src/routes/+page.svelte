@@ -11,9 +11,9 @@
 </svelte:head>
 
 <section>
-	<Title/>
-	<Introduce/>
 	<!-- <Counter /> -->
+		<Title/>
+		<Introduce/>
 </section>
 
 <style>

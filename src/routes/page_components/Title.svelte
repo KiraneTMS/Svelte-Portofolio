@@ -200,4 +200,63 @@
 		opacity: 1;
 	}
 	}
+	@media(max-width: 574px) {
+		.shape {
+		/* General */
+		width: 300px;
+		height: 300px;
+		padding: 10px;
+		background: linear-gradient(64.00916346799386deg, rgba(58, 0, 92,1) 23.44140625%,rgba(58, 0, 92,1) 23.44140625%,rgb(51, 0, 236) 79.84765625%);
+		display: flex;
+		z-index: 1;
+		/* Content */
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		font-family: '',monospace;
+		color: white;
+		/* Animation */
+		animation: wave 4.0s ease-in-out infinite;
+		&:nth-of-type(2) {
+		width: 800px;
+		height: 800px;
+			position: absolute;
+			bottom: -200px;
+			left: -400px;
+			/* opacity: .3; */
+			z-index: 0;
+		}
+		&:nth-of-type(3) {
+		width: 300px;
+		height: 300px;
+			position: absolute;
+			top: 20px;
+			right: 0;
+			/* opacity: .3; */
+			z-index: 0;
+		}
+		/* Text Effect 1 */
+
+		.title{
+		font-size: 300%;
+		position: relative;
+		&::after, &::before{
+			content: attr(data-text);
+			text-shadow: 0 0 18px white;
+			position: absolute;
+			left: -4px;
+			text-shadow: none;
+			background-image: url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmedia.giphy.com%2Fmedia%2F3DPAzwJxrwCre%2Fgiphy.gif&f=1&nofb=1&ipt=dc4dd2260b9ccecc06fc391c3c781a47f6dd210b6e9d1d80c61beb36b618cdc9&ipo=images);
+			background-clip: text;
+			color: transparent;
+			mix-blend-mode: lighten;
+			pointer-events: none;
+		}
+		&::before{
+			left: -3px;
+			mix-blend-mode: lighten;
+		}
+		}
+	}
+}
 </style>

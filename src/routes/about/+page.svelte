@@ -14,7 +14,7 @@
 <Title/>
 <Introduce/>
 	<h2 class="skills_type">Programming Skills</h2>
-	<div style="display: flex; gap: 20px; justify-content: center; align-items: center;
+	<div style="display: flex; gap: 20px; justify-content: left; align-items: center;
 		overflow-x: auto;
 		white-space: nowrap;
 		scrollbar-width: thin;
@@ -24,7 +24,7 @@
 		{/each}
 	</div>
 	<h2 class="skills_type">Visual Arts and Design</h2>
-	<div style="display: flex; gap: 20px; justify-content: center; align-items: center;
+	<div style="display: flex; gap: 20px; justify-content: left; align-items: center;
 	overflow-x: auto;
 	white-space: nowrap;
 	scrollbar-width: thin;
@@ -34,7 +34,7 @@
 		{/each}
 	</div>
 	<h2 class="skills_type">Language Skills</h2>
-	<div style="display: flex; gap: 20px; justify-content: center; align-items: center;
+	<div style="display: flex; gap: 20px; justify-content: left; align-items: center;
 	overflow-x: auto;
 	white-space: nowrap;
 	scrollbar-width: thin;

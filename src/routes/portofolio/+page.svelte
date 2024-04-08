@@ -20,6 +20,7 @@
 	let searchResult = ''
 	let activatedArtTags: string[] = [];
 	let activatedProgrammingTags: string[] = [];
+	let currentShowedImageIndex : number
 	
 	let isModalShown = false;
 	let isShowMatureContent = false;
@@ -36,6 +37,12 @@
 		// Add the tag if it's not present
 		activatedArtTags = [...activatedArtTags, tag];
 		}
+		
+		// Console log to show all indices and names available
+		// console.log("Activated Art Tags:");
+		// activatedArtTags.forEach((tag, index) => {
+		// 	console.log(`Index: ${index}, Name: ${tag}`);
+		// });
 	}
 	function toggleProgrammingTag(tag: string) {
 		if (activatedProgrammingTags.includes(tag)) {
@@ -53,7 +60,7 @@
 		searchResult = (event.target as HTMLInputElement).value;
 
 		// Perform your custom search logic here (e.g., display search results)
-		console.log('Performing search:', searchResult);
+		// console.log('Performing search:', searchResult);
 	}
 
 	// Switch Portofolio Mode Function
@@ -65,7 +72,7 @@
 
 	//Filter Art Portofolio
 	$: filteredImages = arts.images
-    .filter(({ title, description, tags, purpose }) => {
+    .filter(({ title, description, tags, purpose }, index) => {
       const includesSearchResult = title.toLowerCase().includes(searchResult.toLowerCase()) || 
                                   (description && description.toLowerCase().includes(searchResult.toLowerCase()));
 
@@ -79,7 +86,14 @@
 
       const isMatureContent = tags.map(t => t.toLowerCase()).includes('mature');
 
-      return includesSearchResult && includesActivatedTags && includesProjectType && (isShowMatureContent || !isMatureContent);
+      const isValid = includesSearchResult && includesActivatedTags && includesProjectType && (isShowMatureContent || !isMatureContent);
+
+        if (isValid) {
+            // console.log(`Index: ${index}, Title: ${title}`);
+        }
+
+        return isValid;
+
     })
     .slice()
     .reverse();
@@ -106,47 +120,42 @@
 		tags: string[];
 	};
 
-	// Define the type of ArtsJson
-	type ArtsJson = {
-		images: Art[];
-	};
-
-	// Make sure artsJson follows the specified type
-	const artsData: ArtsJson = artsJson;
-
 	// Get the data of the first art
 	let firstArt: Art | undefined;
 
-	const reversedImages = [...artsData.images].reverse();
-
-	
 	function getArt(index: number) {
-		const filteredImages = reversedImages.filter(art => {
+		const filteredImage = filteredImages.filter(art => {
 			if (isShowMatureContent) {
+			// console.log(index)
 			return true; // Include all images when isShowMatureContent is true
 			} else {
+			// console.log(index)
 			return !art.tags.includes('mature'); // Exclude images with the 'mature' tag when isShowMatureContent is false
 			}
 		});
 
-		firstArt = filteredImages[index];
+		currentShowedImageIndex = index
+		firstArt = filteredImage[index];
 		isModalShown = true;
+		// console.log(filteredImages)
 	}
 	function closeImageModal() {
 		// Add logic to close or hide the modal
 		// You can use state management or emit an event to the parent component
 		isModalShown = false
-		console.log(isModalShown);
+		// console.log(isModalShown);
 	}
 	function next() {
-		const currentIndex = reversedImages.indexOf(firstArt as Art);
-		const nextIndex = (currentIndex + 1 + reversedImages.length) % filteredImages.length;
+		const currentIndex = currentShowedImageIndex;
+		const nextIndex = (currentIndex + 1 ) % filteredImages.length;
 		getArt(nextIndex);
+		// console.log(currentIndex)
 	}
 	function prev() {
-		const currentIndex = reversedImages.indexOf(firstArt as Art);
-		const prevIndex = (currentIndex - 1 + reversedImages.length) % filteredImages.length;
+		const currentIndex = currentShowedImageIndex;
+		const prevIndex = (currentIndex - 1 ) % filteredImages.length;
 		getArt(prevIndex);
+		// console.log(currentIndex)
 	}
 
 	function toggleMatureContent() {
@@ -167,6 +176,7 @@
 	--hue: calc(30deg - (30deg * var(--clr)));
 	}
 	/* Your global styles for the image gallery page */
+
 	.hidden {
 		display: none;
 	}
@@ -245,8 +255,8 @@
 	}
 
 	.search-bar {
-		width: 100%;
-  		max-width: 100%;
+		/* width: 100%; */
+  		max-width: 90%;
 		height: 35px;
 		background: rgba(46, 51, 88, 0.2);
 		display: flex;
@@ -529,13 +539,13 @@
 		box-shadow: 0 0 calc(var(--sz) / 50) calc(var(--sz) / 100) var(--c1) inset, 0 0 calc(var(--sz) / 2.5) calc(var(--sz) / 12) var(--c1), 0 0 calc(var(--sz) / 1) calc(var(--sz) / 100) #fff inset, 0 0 calc(var(--sz) / 3) calc(var(--sz) / 50) #FFF;
 	}
 
-  @media (max-width: 768px) {
+	@media (max-width: 482px) {
     .close-container {
-      top: 0;
-      right: 15%;
+      top: -15%;
+      right: 25%;
     }
     .close-icon {
-      margin-right: 8px;
+      margin-right: 7.5px;
       font-size: 18px; /* Adjust close icon size for smaller screens */
     }
 
@@ -547,6 +557,25 @@
 		width: 80%;
 	}
   }
+  @media (max-width: 768px) {
+    .close-container {
+      top: 0;
+      right: 15%;
+    }
+    .close-icon {
+      margin-right: 7.5px;
+      font-size: 18px; /* Adjust close icon size for smaller screens */
+    }
+
+	.portofolio-body {
+		flex-direction: column;
+	}
+
+	.portofolio-filter {
+		width: 80%;
+	}
+  }
+
 </style>
 <svelte:head>
 	<title>Portofolio</title>
@@ -554,115 +583,118 @@
 </svelte:head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-DLcjxQ8iJkqlNKn3P9gZPxCVIn+EGkLfd5k7ahFpsENuq+nbrk62Zekn5L/sW7t6" crossorigin="anonymous">
 
-
-<div id="modalContainer" class={!isModalShown ? 'hidden' : ''}>
-	<div class="close-container">
-	  <span class="close-icon" on:click={() => closeImageModal()}>✕</span>
-	  <span class="close-circle"></span>
-	</div>
-	{#if firstArt}
-	  <ImageModal title={firstArt.title} link={firstArt.link} tools={firstArt.tools} description={firstArt.description} />
-	  {console.log(isModalShown)}
-	{/if}
-	
-	<div class="prev" on:click={prev}>&lt;</div>
-	<div class="next" on:click={next}>&gt;</div>
-</div>
-  
-<div class="portofolio-body">
-	<div class="portofolio-filter">
-		<!-- Filter content goes here -->
-		{#each types.portofolio_types as { title, image, icon, type}}
-			<button class='one' data-text={type} 
-			style="background-image: linear-gradient(to bottom, #232324, rgba(122, 118, 126, 0.51)), url({image}); background-size: cover; background-position: center; color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; position: relative;"
-			on:click={handleButtonClick}>
-
-				<b>{title}</b> Portofolio
-				<style>
-				.one::before, .one::after {
-					content: {icon};
-					position: absolute;
-					font-size: 24px;
-					top: 50%;
-					transform: translateY(-20%);
-				}
-			
-				.one::before {
-					left: 10px;
-				}
-			
-				.one::after {
-					right: 10px;
-				}
-				</style>
-			</button>
-		{/each}
-	</div>
-	<div class="portofolio-content">
-		<form class="search-bar">
-			<input type="text" placeholder="Search anything" name="q" bind:value={searchResult} on:input={handleInputChange}>
-		  </form>
-		  <div>
-			<!-- Your form content here -->
-			<div class="project-type">
-				<label>
-					<input type="radio" name="projectType" value="all" bind:group={projectType}>
-					All
-				</label>
-				<label>
-					<input type="radio" name="projectType" value="personal" bind:group={projectType}>
-					Personal
-				</label>
-				<label>
-					<input type="radio" name="projectType" value="academic" bind:group={projectType}>
-					Academic
-				</label>
-				<label>
-					<input type="radio" name="projectType" value="professional" bind:group={projectType}>
-					Professional
-				</label>
-			</div>
-		  </div>
-			<div class="tags-container">
-				{#if portofolioMode == 1}
-				<ul class="tags">
-					<li class="tag" on:click={toggleAllTag} value="">All</li>
-					{#each sortedData.Art as { title}}
-						<li on:click={() => toggleArtTag(title)} class="{['tag', activatedArtTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
-					{/each}
-				</ul>
-				{:else if portofolioMode == 2}
-				<ul class="tags">
-					<li class="tag" on:click={toggleAllTag} value="">All</li>
-					{#each sortedData.Programming as { title}}
-						<li on:click={() => toggleProgrammingTag(title)} class="{['tag', activatedProgrammingTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
-					{/each}
-				</ul>
-				{/if}
-			</div>
-
-			<label class={portofolioMode == 2? "hide":""} for="toggle" style="color: white; font-size: 13px;">Show Mature Content</label>
-			<div class="toggle {portofolioMode == 2? "hide":""}">
-				<input class="mature-input" type="checkbox" id="btn" on:change={toggleMatureContent}>
-				<label for="btn">
-				  <span class="thumb">
-					<span class="shadow"></span>
-				  </span>
-				</label>
-			  </div>
-			
-		<div class="image-gallery">
-			{#if portofolioMode == 1}
-				{#each filteredImages as { title, link, tools, description}, index}
-				<div on:click={() => getArt(index)} style="cursor: pointer;">
-					<ImageCard {title} {description} {link} {tools}/>
-				</div>
-				{/each}
-			{:else if portofolioMode ==2}
-				<ProgramCard {searchResult} {activatedProgrammingTags} {projectType}/>
-			{/if}
-			<!-- Add more ImageCard components as needed -->
+<div style="max-width: 1300px; vertical-align: middle; align-items: center;">
+	<div id="modalContainer" class={!isModalShown ? 'hidden' : ''}>
+		<div class="close-container">
+		  <span class="close-icon" on:click={() => closeImageModal()}>✕</span>
+		  <span class="close-circle"></span>
 		</div>
+		{#if firstArt}
+		  <ImageModal title={firstArt.title} link={firstArt.link} tools={firstArt.tools} description={firstArt.description} />
+		  <!-- {console.log(isModalShown)} -->
+		{/if}
+		
+		<div class="prev" on:click={prev}>&lt;</div>
+		<div class="next" on:click={next}>&gt;</div>
 	</div>
+	  
+	<div class="portofolio-body">
+		<div class="portofolio-filter">
+			<!-- Filter content goes here -->
+			{#each types.portofolio_types as { title, image, icon, type}}
+				<button class='one' data-text={type} 
+				style="background-image: linear-gradient(to bottom, #232324, rgba(122, 118, 126, 0.51)), url({image}); background-size: cover; background-position: center; color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; position: relative;"
+				on:click={handleButtonClick}>
+	
+					<b>{title}</b> Portofolio
+					<style>
+					/* :root {
+						--icon: icon;
+					} */
+					.one::before, .one::after {
+						content: {icon};
+						position: absolute;
+						font-size: 24px;
+						top: 50%;
+						transform: translateY(-20%);
+					}
+				
+					.one::before {
+						left: 10px;
+					}
+				
+					.one::after {
+						right: 10px;
+					}
+					</style>
+				</button>
+			{/each}
+		</div>
+		<div class="portofolio-content">
+			<form class="search-bar">
+				<input type="text" placeholder="Search anything" name="q" bind:value={searchResult} on:input={handleInputChange}>
+			  </form>
+			  <div>
+				<!-- Your form content here -->
+				<div class="project-type">
+					<label>
+						<input type="radio" name="projectType" value="all" bind:group={projectType}>
+						All
+					</label>
+					<label>
+						<input type="radio" name="projectType" value="personal" bind:group={projectType}>
+						Personal
+					</label>
+					<label>
+						<input type="radio" name="projectType" value="academic" bind:group={projectType}>
+						Academic
+					</label>
+					<label>
+						<input type="radio" name="projectType" value="professional" bind:group={projectType}>
+						Professional
+					</label>
+				</div>
+			  </div>
+				<div class="tags-container">
+					{#if portofolioMode == 1}
+					<ul class="tags">
+						<li class="tag" on:click={toggleAllTag} value="">All</li>
+						{#each sortedData.Art as { title}}
+							<li on:click={() => toggleArtTag(title)} class="{['tag', activatedArtTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
+						{/each}
+					</ul>
+					{:else if portofolioMode == 2}
+					<ul class="tags">
+						<li class="tag" on:click={toggleAllTag} value="">All</li>
+						{#each sortedData.Programming as { title}}
+							<li on:click={() => toggleProgrammingTag(title)} class="{['tag', activatedProgrammingTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
+						{/each}
+					</ul>
+					{/if}
+				</div>
+	
+				<label class={portofolioMode == 2? "hide":""} for="toggle" style="color: white; font-size: 13px;">Show Mature Content</label>
+				<div class="toggle {portofolioMode == 2? "hide":""}">
+					<input class="mature-input" type="checkbox" id="btn" on:change={toggleMatureContent}>
+					<label for="btn">
+					  <span class="thumb">
+						<span class="shadow"></span>
+					  </span>
+					</label>
+				  </div>
+				
+			<div class="image-gallery">
+				{#if portofolioMode == 1}
+					{#each filteredImages as { title, link, tools, description}, index}
+					<div on:click={() => getArt(index)} style="cursor: pointer;">
+						<ImageCard {title} {description} {link} {tools}/>
+					</div>
+					{/each}
+				{:else if portofolioMode ==2}
+					<ProgramCard {searchResult} {activatedProgrammingTags} {projectType}/>
+				{/if}
+				<!-- Add more ImageCard components as needed -->
+			</div>
+		</div>
+	</div>	
 </div>
-

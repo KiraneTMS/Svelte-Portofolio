@@ -77,6 +77,19 @@
         }
       ],
       "tags": ["character", "digital art", "Original Character", "Illustration", "mature"]
+    },
+    {
+      "title": "Rajaki Concept Character",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/mjEOnOj.png",
+      "description": "Concept original character named Rajaki Arine",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["character", "concept art", "digital art", "original character"]
     }
   ]
 }
