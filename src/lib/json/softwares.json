@@ -11,8 +11,8 @@
       "tech_stack": [
         { "name": "CSS" },
         { "name": "HTML" },
-        { "name": "JavaScript" },
-        { "name": "SvelteKit" },
+        { "name": "JS" },
+        { "name": "Svelte" },
         { "name": "JSON" }
       ],
       "source": "https://github.com/KiraneTMS/Svelte-Portofolio",

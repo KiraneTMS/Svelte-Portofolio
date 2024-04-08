@@ -213,7 +213,7 @@
                   {#each tags.Programming as tag}
                     {#if tag.title === tech.name}
                       <div class="tech" title={tag.title}>
-                        <img src={`images/ico/${tag.title}/favicon-16x16.png`} alt={tag.title}>
+                        <img src={tag.image}>
                       </div>
                     {/if}
                   {/each}
