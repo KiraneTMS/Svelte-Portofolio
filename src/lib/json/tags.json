@@ -1,15 +1,15 @@
 {
     "Programming": [
-      { "title": "HTML", "image": "/src/lib/images/ico/html/favicon-16x16.png" },
-      { "title": "CSS", "image": "/src/lib/images/ico/css/favicon-16x16.png" },
-      { "title": "JavaScript", "image": "/src/lib/images/ico/js/favicon-16x16.png" },
-      { "title": "Java", "image": "/src/lib/images/ico/java/favicon-16x16.png" },
-      { "title": "Kotlin", "image": "/src/lib/images/ico/kotlin/favicon-16x16.png" },
-      { "title": "PHP", "image": "/src/lib/images/ico/php/favicon-16x16.png" },
-      { "title": "JSON", "image": "/src/lib/images/ico/json/favicon-16x16.png" },
-      { "title": "SvelteKit", "image": "/src/lib/images/ico/svelte/favicon-16x16.png" },
-      { "title": "NodeJS", "image": "/src/lib/images/ico/nodejs/favicon-16x16.png" },
-      { "title": "Retrofit", "image": "/src/lib/images/ico/retrofit/favicon-16x16.png" }
+      { "title": "HTML", "image": "src/lib/images/ico/html/favicon-16x16.png" },
+      { "title": "CSS", "image": "src/lib/images/ico/css/favicon-16x16.png" },
+      { "title": "JavaScript", "image": "src/lib/images/ico/js/favicon-16x16.png" },
+      { "title": "Java", "image": "src/lib/images/ico/java/favicon-16x16.png" },
+      { "title": "Kotlin", "image": "src/lib/images/ico/kotlin/favicon-16x16.png" },
+      { "title": "PHP", "image": "src/lib/images/ico/php/favicon-16x16.png" },
+      { "title": "JSON", "image": "src/lib/images/ico/json/favicon-16x16.png" },
+      { "title": "SvelteKit", "image": "src/lib/images/ico/svelte/favicon-16x16.png" },
+      { "title": "NodeJS", "image": "src/lib/images/ico/nodejs/favicon-16x16.png" },
+      { "title": "Retrofit", "image": "src/lib/images/ico/retrofit/favicon-16x16.png" }
     ],
     "Art": [
       { "title": "Original Character", "image": "url_for_image" },
