@@ -42,8 +42,8 @@
 
             // If tag is found, construct a Tag object with the tag's properties
             if (tag) {
-                const isValid = await isImagePathValid(tag.image);
-                const iconPath = isValid ? tag.image : '/vercel/path0' + tag.image;
+                const isValid = await isImagePathValid('/src/lib'+tag.image);
+                const iconPath = isValid ? '/src/lib'+tag.image : '/_app/immutable/assets' + tag.image;
                 processedTechStack.push({ 
                     title: tag.title, // Using 'title' from Tag interface
                     image: iconPath, // Using 'image' from Tag interface
