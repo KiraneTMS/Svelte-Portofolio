@@ -7,6 +7,7 @@
     export let activatedProgrammingTags: string[] = [];
     export let projectType: string = "";
     let preprocessedTechStack: Tag[] = []; // Array of Tag objects
+    const imagePath = '$lib';
 
     interface Software {
         name: string;
@@ -43,7 +44,7 @@
             // If tag is found, construct a Tag object with the tag's properties
             if (tag) {
                 const isValid = await isImagePathValid('/src/lib'+tag.image);
-                const iconPath = isValid ? '/src/lib'+tag.image : '/_app/immutable/assets' + tag.image;
+                const iconPath = isValid ? '/src/lib'+tag.image : imagePath + tag.image;
                 processedTechStack.push({ 
                     title: tag.title, // Using 'title' from Tag interface
                     image: iconPath, // Using 'image' from Tag interface
