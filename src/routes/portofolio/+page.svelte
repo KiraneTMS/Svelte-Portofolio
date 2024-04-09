@@ -2,6 +2,7 @@
 <script lang="ts">
 	import ImageCard from '../page_components/ImageCard.svelte'; // Make sure to adjust the path based on your project structure
 	import ProgramCard from '../page_components/ProgramCard.svelte'; // Make sure to adjust the path based on your project structure
+	import Policy from '../page_components/Policy.svelte';
 
 	let portofolioMode : number;
 	let projectType = 'all';
@@ -741,7 +742,9 @@
 		</div>
       {:else if portofolioMode == 2}
       {/if}
-   
+	  <div class={portofolioMode == 2? "hide":""} style="margin-top: 20px;">
+		<Policy/>
+	  </div>
 </div>
 </div>	
 </div>
