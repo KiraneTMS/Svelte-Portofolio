@@ -7,7 +7,19 @@
     export let title = "";
     export let description = "";
     export let tools: { name: string; icon: string }[] = [];
+    let preprocessedTools: Tool[] = [];
+
+    interface Tool {
+        name: string;
+        icon: string;
+    }
   
+    async function preprocessTools(tools: Tool[]): Promise<Tool[]> {
+        return Promise.all(tools.map(async tool => {
+            const isValid = await isImagePathValid(tool.icon);
+            return { ...tool, iconPath: isValid ? tool.icon : '/vercel/path0' + tool.icon };
+        }));
+    }
     onMount(() => {
         const tiltContainers = document.querySelectorAll('.art-product-container') as NodeListOf<HTMLElement>;
 
@@ -33,8 +45,22 @@
             overlay.style.backgroundImage = 'none';
         });
         });
+        
     });
 
+    onMount(async () => {
+        preprocessedTools = await preprocessTools(tools);
+    });
+
+    // Function to check if image path is valid
+    async function isImagePathValid(imagePath: string): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = imagePath;
+        });
+    }
     let truncateDescription = (description: string, maxLength: number) => {
       if (description.length > maxLength) {
         return `${description.slice(0, maxLength)}...`;
@@ -92,8 +118,8 @@
     <div class="overlay">
       <h1 class="art-name">{title}</h1>
       <p class="art-description" style="line-height: 1.2;">{truncateDescription(description, 50)}</p>
-      {#each tools as { name, icon }}
-        <div class="small-image" style="background: url('{icon}'); background-size: cover;"></div>
+      {#each preprocessedTools as tool}
+          <div class="small-image" style="background: url({tool.icon}); background-size: cover;"></div>
       {/each}
     </div>
   </div>

@@ -1,14 +1,77 @@
 <script lang="ts">
+    import { onMount } from 'svelte';
     import softwaresJson from '../../lib/json/softwares.json';
     import tags from '../../lib/json/tags.json';
 
-    export let searchResult ="";
+    export let searchResult: string = "";
     export let activatedProgrammingTags: string[] = [];
-    export let projectType = "";
+    export let projectType: string = "";
+    let preprocessedTechStack: Tag[] = []; // Array of Tag objects
+
+    interface Software {
+        name: string;
+        client: string;
+        image: string;
+        description: string;
+        brief_description: string;
+        purpose: string;
+        Platform: string;
+        tech_stack: { name: string; icon: string }[]; // Update tech_stack type
+        source: string;
+        position: string;
+    }
+
+    interface Tag {
+        title: string;
+        image: string;
+        // Add more properties as needed
+    }
 
     if (projectType !== 'all') {
-      projectType = '';
-    } 
+        projectType = '';
+    }
+
+    async function preprocessTechStack() {
+    const processedTechStackArrays: Tag[][] = await Promise.all(softwaresJson.software.map(async software => {
+        const techStack = software.tech_stack;
+        const processedTechStack: Tag[] = [];
+
+        for (const techItem of techStack) {
+            // Find the corresponding tag from tags.Programming
+            const tag = tags.Programming.find(tag => tag.title === techItem.name);
+
+            // If tag is found, construct a Tag object with the tag's properties
+            if (tag) {
+                const isValid = await isImagePathValid(tag.image);
+                const iconPath = isValid ? tag.image : '/vercel/path0' + tag.image;
+                processedTechStack.push({ 
+                    title: tag.title, // Using 'title' from Tag interface
+                    image: iconPath, // Using 'image' from Tag interface
+                });
+            }
+        }
+
+        return processedTechStack;
+    }));
+
+    // Flatten the array of arrays into a single array
+    preprocessedTechStack = processedTechStackArrays.flat();
+}
+
+
+
+    // Function to check if image path is valid
+    async function isImagePathValid(imagePath: string): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = imagePath;
+        });
+    }
+
+    // Execute preprocessing when the component is mounted
+    onMount(preprocessTechStack);
 
     $: filteredProgram = softwaresJson.software.filter(({ name, purpose, description, tech_stack }) => {
 		const includesSearchResult = name.toLowerCase().includes(searchResult.toLowerCase()) || 
@@ -210,7 +273,7 @@
             <div class="buttons">
               <div class="social">
                 {#each tech_stack as tech}
-                  {#each tags.Programming as tag}
+                  {#each preprocessedTechStack as tag}
                     {#if tag.title === tech.name}
                       <div class="tech" title={tag.title}>
                         <img src={tag.image}>
