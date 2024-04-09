@@ -162,6 +162,32 @@
 		isShowMatureContent = !isShowMatureContent;
 	}
 
+//pagination
+
+	let currentPage = 0;
+    const itemsPerPage = 9;
+
+    function calculateTotalPages(images: Art[]) {
+        return Math.ceil(images.length / itemsPerPage);
+    }
+
+    function paginateImages(images: Art[]) {
+        const startIndex = currentPage * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        return images.slice(startIndex, endIndex);
+    }
+	
+    $: totalPages = calculateTotalPages(filteredImages);
+    $: paginatedImages = paginateImages(filteredImages);
+
+    function goToPage(pageIndex: number) {
+        console.log("Going to page:", pageIndex);
+        currentPage = pageIndex;
+        console.log("Current page:", currentPage);
+  		paginatedImages = paginateImages(filteredImages);
+        // Optionally, you can call paginateImages() here and update the UI accordingly
+    }
+
 </script>
 
 <style>
@@ -576,125 +602,146 @@
 	}
   }
 
+  /* pagination */
+  .pagination {
+        display: flex;
+        justify-content: center; /* Horizontally center the buttons */
+        margin-top: 20px; /* Adjust as needed */
+    }
+  .pagination-button {
+        background: linear-gradient(64.00916346799386deg, rgba(58, 0, 92,1) 23.44140625%, rgba(58, 0, 92,1) 23.44140625%, rgb(51, 0, 236) 79.84765625%);
+        color: white;
+		border-radius: 10px;
+        padding: 5px 10px;
+        border: none;
+        margin: 0 2px;
+        cursor: pointer;
+    }
+
+    .pagination-button.active {
+        background: linear-gradient(64.00916346799386deg, rgb(215, 162, 247) 23.44140625%, rgb(215, 162, 247) 23.44140625%, rgb(161, 135, 255) 79.84765625%);
+    }
+
 </style>
 <svelte:head>
 	<title>Portofolio</title>
 	<meta name="description" content="All Project I've worked on" />
 </svelte:head>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-DLcjxQ8iJkqlNKn3P9gZPxCVIn+EGkLfd5k7ahFpsENuq+nbrk62Zekn5L/sW7t6" crossorigin="anonymous">
-
 <div style="max-width: 1300px; vertical-align: middle; align-items: center;">
-	<div id="modalContainer" class={!isModalShown ? 'hidden' : ''}>
-		<div class="close-container">
-		  <span class="close-icon" on:click={() => closeImageModal()}>✕</span>
-		  <span class="close-circle"></span>
-		</div>
-		{#if firstArt}
-		  <ImageModal title={firstArt.title} link={firstArt.link} tools={firstArt.tools} description={firstArt.description} />
-		  <!-- {console.log(isModalShown)} -->
-		{/if}
-		
-		<div class="prev" on:click={prev}>&lt;</div>
-		<div class="next" on:click={next}>&gt;</div>
-	</div>
-	  
-	<div class="portofolio-body">
-		<div class="portofolio-filter">
-			<!-- Filter content goes here -->
-			{#each types.portofolio_types as { title, image, icon, type}}
-				<button class='one' data-text={type} 
-				style="background-image: linear-gradient(to bottom, #232324, rgba(122, 118, 126, 0.51)), url({image}); background-size: cover; background-position: center; color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; position: relative;"
-				on:click={handleButtonClick}>
-	
-					<b>{title}</b> Portofolio
-					<style>
-					/* :root {
-						--icon: icon;
-					} */
-					.one::before, .one::after {
-						content: {icon};
-						position: absolute;
-						font-size: 24px;
-						top: 50%;
-						transform: translateY(-20%);
-					}
-				
-					.one::before {
-						left: 10px;
-					}
-				
-					.one::after {
-						right: 10px;
-					}
-					</style>
-				</button>
+   <div id="modalContainer" class={!isModalShown ? 'hidden' : ''}>
+   <div class="close-container">
+      <span class="close-icon" on:click={() => closeImageModal()}>✕</span>
+      <span class="close-circle"></span>
+   </div>
+   {#if firstArt}
+   <ImageModal title={firstArt.title} link={firstArt.link} tools={firstArt.tools} description={firstArt.description} />
+   <!-- {console.log(isModalShown)} -->
+   {/if}		
+   <div class="prev" on:click={prev}>&lt;</div>
+   <div class="next" on:click={next}>&gt;</div>
+</div>
+<div class="portofolio-body">
+   <div class="portofolio-filter">
+      <!-- Filter content goes here -->
+      {#each types.portofolio_types as { title, image, icon, type}}
+      <button class='one' data-text={type} 
+         style="background-image: linear-gradient(to bottom, #232324, rgba(122, 118, 126, 0.51)), url({image}); background-size: cover; background-position: center; color: white; padding: 20px; border: none; border-radius: 8px; cursor: pointer; font-size: 18px; font-weight: bold; position: relative;"
+         on:click={handleButtonClick}>
+         <b>{title}</b> Portofolio
+         <style>
+            /* :root {
+            --icon: icon;
+            } */
+            .one::before, .one::after {
+            content: {icon};
+            position: absolute;
+            font-size: 24px;
+            top: 50%;
+            transform: translateY(-20%);
+            }
+            .one::before {
+            left: 10px;
+            }
+            .one::after {
+            right: 10px;
+            }
+         </style>
+      </button>
+      {/each}
+   </div>
+   <div class="portofolio-content">
+      <form class="search-bar">
+         <input type="text" placeholder="Search anything" name="q" bind:value={searchResult} on:input={handleInputChange}>
+      </form>
+      <div>
+         <!-- Your form content here -->
+         <div class="project-type">
+            <label>
+            <input type="radio" name="projectType" value="all" bind:group={projectType}>
+            All
+            </label>
+            <label>
+            <input type="radio" name="projectType" value="personal" bind:group={projectType}>
+            Personal
+            </label>
+            <label>
+            <input type="radio" name="projectType" value="academic" bind:group={projectType}>
+            Academic
+            </label>
+            <label>
+            <input type="radio" name="projectType" value="professional" bind:group={projectType}>
+            Professional
+            </label>
+         </div>
+      </div>
+      <div class="tags-container">
+         {#if portofolioMode == 1}
+         <ul class="tags">
+            <li class="tag" on:click={toggleAllTag} value="">All</li>
+            {#each sortedData.Art as { title}}
+            <li on:click={() => toggleArtTag(title)} class="{['tag', activatedArtTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
+            {/each}
+         </ul>
+         {:else if portofolioMode == 2}
+         <ul class="tags">
+            <li class="tag" on:click={toggleAllTag} value="">All</li>
+            {#each sortedData.Programming as { title}}
+            <li on:click={() => toggleProgrammingTag(title)} class="{['tag', activatedProgrammingTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
+            {/each}
+         </ul>
+         {/if}
+      </div>
+      <label class={portofolioMode == 2? "hide":""} for="toggle" style="color: white; font-size: 13px;">Show Mature Content</label>
+      <div class="toggle {portofolioMode == 2? "hide":""}">
+      <input class="mature-input" type="checkbox" id="btn" on:change={toggleMatureContent}>
+      <label for="btn">
+      <span class="thumb">
+      <span class="shadow"></span>
+      </span>
+      </label>
+   </div>
+   <div class="image-gallery">
+      {#if portofolioMode == 1}
+      {#each paginatedImages as { title, link, tools, description}, index}
+      <div on:click={() => getArt(index)} style="cursor: pointer;">
+         <ImageCard {title} {description} {link} {tools}/>
+      </div>
+      {/each}
+      {:else if portofolioMode == 2}
+      <ProgramCard {searchResult} {activatedProgrammingTags} {projectType}/>
+      {/if}
+      <!-- Add more ImageCard components as needed -->
+   </div>
+   	  {#if portofolioMode == 1}
+		<div class="pagination">
+			{#each Array.from({ length: totalPages }) as _, index}
+				<button class="{currentPage === index ? 'pagination-button active' : 'pagination-button'}" on:click={() => goToPage(index)}>{index + 1}</button>
 			{/each}
 		</div>
-		<div class="portofolio-content">
-			<form class="search-bar">
-				<input type="text" placeholder="Search anything" name="q" bind:value={searchResult} on:input={handleInputChange}>
-			  </form>
-			  <div>
-				<!-- Your form content here -->
-				<div class="project-type">
-					<label>
-						<input type="radio" name="projectType" value="all" bind:group={projectType}>
-						All
-					</label>
-					<label>
-						<input type="radio" name="projectType" value="personal" bind:group={projectType}>
-						Personal
-					</label>
-					<label>
-						<input type="radio" name="projectType" value="academic" bind:group={projectType}>
-						Academic
-					</label>
-					<label>
-						<input type="radio" name="projectType" value="professional" bind:group={projectType}>
-						Professional
-					</label>
-				</div>
-			  </div>
-				<div class="tags-container">
-					{#if portofolioMode == 1}
-					<ul class="tags">
-						<li class="tag" on:click={toggleAllTag} value="">All</li>
-						{#each sortedData.Art as { title}}
-							<li on:click={() => toggleArtTag(title)} class="{['tag', activatedArtTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
-						{/each}
-					</ul>
-					{:else if portofolioMode == 2}
-					<ul class="tags">
-						<li class="tag" on:click={toggleAllTag} value="">All</li>
-						{#each sortedData.Programming as { title}}
-							<li on:click={() => toggleProgrammingTag(title)} class="{['tag', activatedProgrammingTags.includes(title) && 'active-tag'].filter(Boolean).join(' ')}" value={title}>{title}</li>
-						{/each}
-					</ul>
-					{/if}
-				</div>
-	
-				<label class={portofolioMode == 2? "hide":""} for="toggle" style="color: white; font-size: 13px;">Show Mature Content</label>
-				<div class="toggle {portofolioMode == 2? "hide":""}">
-					<input class="mature-input" type="checkbox" id="btn" on:change={toggleMatureContent}>
-					<label for="btn">
-					  <span class="thumb">
-						<span class="shadow"></span>
-					  </span>
-					</label>
-				  </div>
-				
-			<div class="image-gallery">
-				{#if portofolioMode == 1}
-					{#each filteredImages as { title, link, tools, description}, index}
-					<div on:click={() => getArt(index)} style="cursor: pointer;">
-						<ImageCard {title} {description} {link} {tools}/>
-					</div>
-					{/each}
-				{:else if portofolioMode ==2}
-					<ProgramCard {searchResult} {activatedProgrammingTags} {projectType}/>
-				{/if}
-				<!-- Add more ImageCard components as needed -->
-			</div>
-		</div>
-	</div>	
+      {:else if portofolioMode == 2}
+      {/if}
+   
+</div>
+</div>	
 </div>

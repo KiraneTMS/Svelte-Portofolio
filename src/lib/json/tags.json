@@ -22,7 +22,8 @@
       { "title": "Sketch", "image": "url_for_image" },
       { "title": "Character", "image": "url_for_image" },
       { "title": "Mature", "image": "url_for_image" },
-      { "title": "Room Illustration", "image": "url_for_image" }
+      { "title": "Room Illustration", "image": "url_for_image" },
+      { "title": "Environment", "image": "url_for_image" }
     ]
   }
   

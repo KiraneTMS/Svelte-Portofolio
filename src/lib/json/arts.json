@@ -1,10 +1,23 @@
 {
   "images": [
     {
+      "title": "Aurluna first Concept Character",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/tUtQQL3.png",
+      "description": "Concept original character named Aurluna Van Sylvania",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["character", "concept art", "digital art", "original character"]
+    },
+    {
       "title": "Aurluna Concept Character",
       "purpose": "Personal",
       "link": "https://i.imgur.com/EJTwVZr.png",
-      "description": "Concept original character named Aurluna Van Sylvania",
+      "description": "final Concept original character named Aurluna Van Sylvania",
       "tools": [
         {
           "name": "Clip Studio Paint",
@@ -83,6 +96,58 @@
       "purpose": "Personal",
       "link": "https://i.imgur.com/mjEOnOj.png",
       "description": "Concept original character named Rajaki Arine",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["character", "concept art", "digital art", "original character"]
+    },
+    {
+      "title": "Onsen",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/szQmpON.png",
+      "description": "Draw of Onsen",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["concept art", "digital art", "Environment", "Illustration", "Room Illustration"]
+    },
+    {
+      "title": "Onsen 2",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/STMQ4SX.png",
+      "description": "Draw of Onsen",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["concept art", "digital art", "Environment", "Illustration", "Room Illustration"]
+    },
+    {
+      "title": "Rajaki Arine Illustration",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/FmAjlZP.png",
+      "description": "Illustration of Rajaki Arine",
+      "tools": [
+        {
+          "name": "Clip Studio Paint",
+          "icon": "/src/lib/images/ico/csp/favicon-32x32.png"
+        }
+      ],
+      "tags": ["character", "digital art", "original character", "Illustration"]
+    },
+    {
+      "title": "Lux Concept Character",
+      "purpose": "Personal",
+      "link": "https://i.imgur.com/UFFnoZc.png",
+      "description": "Concept original character named Lux",
       "tools": [
         {
           "name": "Clip Studio Paint",
