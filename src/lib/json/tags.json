@@ -1,15 +1,15 @@
 {
     "Programming": [
-      { "title": "HTML", "image": "/images/ico/html/favicon-16x16.png" },
-      { "title": "CSS", "image": "/images/ico/css/favicon-16x16.png" },
-      { "title": "JS", "image": "/images/ico/js/favicon-16x16.png" },
-      { "title": "Java", "image": "/images/ico/java/favicon-16x16.png" },
-      { "title": "Kotlin", "image": "/images/ico/kotlin/favicon-16x16.png" },
-      { "title": "PHP", "image": "/images/ico/php/favicon-16x16.png" },
-      { "title": "JSON", "image": "/images/ico/json/favicon-16x16.png" },
-      { "title": "Svelte", "image": "/images/ico/svelte/favicon-16x16.png" },
-      { "title": "NodeJS", "image": "/images/ico/nodejs/favicon-16x16.png" },
-      { "title": "Retrofit", "image": "/images/ico/retrofit/favicon-16x16.png" }
+      { "title": "HTML", "image": "https://i.imgur.com/Jcf06gk.png" },
+      { "title": "CSS", "image": "https://i.imgur.com/zzEa0nM.png" },
+      { "title": "JS", "image": "https://i.imgur.com/2wR7MvM.png" },
+      { "title": "Java", "image": "https://i.imgur.com/fBhMZQC.png" },
+      { "title": "Kotlin", "image": "https://i.imgur.com/6DwAuIj.png" },
+      { "title": "PHP", "image": "https://i.imgur.com/iGqdjBj.png" },
+      { "title": "JSON", "image": "https://i.imgur.com/YrIApad.png" },
+      { "title": "Svelte", "image": "https://i.imgur.com/pVusa9a.png" },
+      { "title": "NodeJS", "image": "https://i.imgur.com/w1iz4B2.png" },
+      { "title": "Retrofit", "image": "https://i.imgur.com/pcn029l.png" }
     ],
     "Art": [
       { "title": "Original Character", "image": "url_for_image" },
