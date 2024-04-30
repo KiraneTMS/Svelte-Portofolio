@@ -23,7 +23,7 @@
 </script>
 
 <div class="app">
-	{#if (currentPage && currentPage.url) ?.pathname !== '/zettai-ryouiki' && (currentPage && currentPage.url) ?.pathname !== '/shinsei-no-mon'}
+	{#if (currentPage && currentPage.url) ?.pathname !== '/zettai-ryouiki' && (currentPage && currentPage.url) ?.pathname !== '/shinsei-no-mon' && currentPage?.url?.pathname !== '/testing-ground'}
 		<Header />
 	{/if}
 
@@ -31,24 +31,24 @@
 		<slot />
 	</main>
 
-	{#if (currentPage && currentPage.url) ?.pathname !== '/zettai-ryouiki' && (currentPage && currentPage.url) ?.pathname !== '/shinsei-no-mon'}
+	{#if (currentPage && currentPage.url) ?.pathname !== '/zettai-ryouiki' && (currentPage && currentPage.url) ?.pathname !== '/shinsei-no-mon' && currentPage?.url?.pathname !== '/testing-ground'}
 		<footer>
 			{console.log('Footer rendering for:', currentPage?.url?.pathname)}
 			<div class="container row">
 				<div class="footer-col">
 					<h4>Pages</h4>
 					<ul>
-						<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
-							<a href={$page.url.pathname === '/' ? '/' : '/'}>Home</a>
+						<li aria-current={currentPage?.url.pathname === '/' ? 'page' : undefined}>
+							<a href={currentPage?.url.pathname === '/' ? '/' : '/'}>Home</a>
 						</li>
-						<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
-							<a href={$page.url.pathname === '/about' ? '/about' : '/'}>About Me</a>
+						<li aria-current={currentPage?.url.pathname === '/about' ? 'page' : undefined}>
+							<a href={currentPage?.url.pathname === '/about' ? '/about' : '/'}>About Me</a>
 						</li>
-						<li aria-current={$page.url.pathname === '/portofolio' ? 'page' : undefined}>
+						<li aria-current={currentPage?.url.pathname === '/portofolio' ? 'page' : undefined}>
 							<a href="/portofolio">Portfolio</a>
 						</li>
-						<li aria-current={$page.url.pathname === '/contact' ? 'page' : undefined}>
-							<a href={$page.url.pathname === '/contact' ? '/contact' : '/'}>Contact</a>
+						<li aria-current={currentPage?.url.pathname === '/contact' ? 'page' : undefined}>
+							<a href={currentPage?.url.pathname === '/contact' ? '/contact' : '/'}>Contact</a>
 						</li>
 					</ul>
 				</div>
@@ -64,6 +64,7 @@
 			</div>
 		</footer>
 	{/if}
+
 </div>
 
 <style>

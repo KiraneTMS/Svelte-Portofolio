@@ -7,6 +7,7 @@
     export let activatedProgrammingTags: string[] = [];
     export let projectType: string = "";
     let preprocessedTechStack: Tag[] = []; // Array of Tag objects
+    let uniqueTags: Tag[] = [];
     const imagePath = '$lib';
 
     interface Software {
@@ -57,6 +58,11 @@
 
     // Flatten the array of arrays into a single array
     preprocessedTechStack = processedTechStackArrays.flat();
+
+    // Remove duplicates from preprocessedTechStack
+    uniqueTags = preprocessedTechStack.filter((tag, index, self) => 
+        index === self.findIndex(t => t.title === tag.title)
+    );
 }
 
 
@@ -255,6 +261,10 @@
         background: var(--hover-color);
   
       }
+      .tech {
+        width: 16px;
+        height: 16px;
+      }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-DLcjxQ8iJkqlNKn3P9gZPxCVIn+EGkLfd5k7ahFpsENuq+nbrk62Zekn5L/sW7t6" crossorigin="anonymous">
       {#each filteredProgram as { name, image, brief_description, purpose, Platform, tech_stack, source}}
@@ -274,8 +284,8 @@
             <div class="buttons">
               <div class="social">
                 {#each tech_stack as tech}
-                  {#each preprocessedTechStack as tag}
-                    {#if tag.title === tech.name}
+                  {#each uniqueTags as tag}
+                      {#if tag.title === tech.name}
                       <div class="tech" title={tag.title}>
                         <img src={tag.image}>
                       </div>

@@ -31,6 +31,7 @@
 		activatedProgrammingTags = [];
 	}
 	function toggleArtTag(tag: string) {
+		goToPage(0)
 		if (activatedArtTags.includes(tag)) {
 		// Remove the tag if it's already present
 		activatedArtTags = activatedArtTags.filter(t => t !== tag);
@@ -567,6 +568,9 @@
 	}
 
 	@media (max-width: 482px) {
+	.modalContainer{
+		max-width: 450px;
+	}
     .close-container {
       top: -15%;
       right: 25%;
@@ -587,11 +591,7 @@
   @media (max-width: 768px) {
     .close-container {
       top: 0;
-      right: 15%;
-    }
-    .close-icon {
-      margin-right: 7.5px;
-      font-size: 18px; /* Adjust close icon size for smaller screens */
+      right: 25%;
     }
 
 	.portofolio-body {

@@ -32,6 +32,39 @@
       ],
       "source": "https://github.com/KiraneTMS/BodyBalancy",
       "position": "Android Developer"
+    },
+    {
+      "name": "Zero Studio",
+      "client": "-",
+      "image": "https://i.imgur.com/HTvpS0y.png",
+      "description": "an Anime Streaming Website \nApplication that u can watch and upload anime using laravel and mysql technology  ",
+      "brief_description": "Anime Streaming Website \nApplication that let u watch or upload anime",
+      "purpose": "Academic",
+      "Platform": "Website",
+      "tech_stack": [
+        { "name": "CSS" },
+        { "name": "HTML" },
+        { "name": "JS" },
+        { "name": "PHP" },
+        { "name": "Laravel" }
+      ],
+      "source": "https://github.com/KiraneTMS/PWPB_Zero",
+      "position": "Android Developer"
+    },
+    {
+      "name": "Inventaris App",
+      "client": "-",
+      "image": "https://i.imgur.com/Fx2oZpw.png",
+      "description": "an Inventaris Desktop Applikation \nApplication using Java Netbeans and mysql technology  ",
+      "brief_description": "Inventaris Desktop Applikation \nApplication Inventaris to manage goods and loan items ",
+      "purpose": "Academic",
+      "Platform": "Desktop",
+      "tech_stack": [
+        { "name": "Java" },
+        { "name": "MYSQL" }
+      ],
+      "source": "https://gitlab.com/pbo-inventaristic/inventaristic-app",
+      "position": "Android Developer"
     }
   ]
 }
