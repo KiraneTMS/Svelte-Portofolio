@@ -84,7 +84,7 @@
     {
       "name": "Shortcut Hub",
       "client": "-",
-      "image": "",
+      "image": "https://i.imgur.com/zsDMFzv.png",
       "description": "Shortcut App Using Flutter ",
       "brief_description": "an Windows Shortcut App that using Flutter Tech",
       "purpose": "Personal",
