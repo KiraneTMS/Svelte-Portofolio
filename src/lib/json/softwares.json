@@ -95,6 +95,24 @@
       ],
       "source": "https://github.com/KiraneTMS/Shortcut-Hub",
       "position": "Fullstack Developer"
+    },
+    {
+      "name": "Inem E-Commerce Integrator",
+      "client": "-",
+      "image": "https://i.imgur.com/fJyTIfu.png",
+      "description": "Integrator for E-Commerce",
+      "brief_description": "Integrator for E-Commerce that using Laravel Tech",
+      "purpose": "Personal",
+      "Platform": "Website",
+      "tech_stack": [
+        { "name": "Laravel" },
+        { "name": "PHP" },
+        { "name": "JS" },
+        { "name": "CSS" },
+        { "name": "HTML" }
+      ],
+      "source": "https://github.com/KiraneTMS/Inem",
+      "position": "Fullstack Developer"
     }
   ]
 }
